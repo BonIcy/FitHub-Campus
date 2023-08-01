@@ -26,6 +26,7 @@ app.use(express.json());
 
 app.use('/api/calories', caloriesRoutes);
 app.use('/api/machines', machineRoutes); 
+
 app.use('/api/supplements', supplementRoutes);
 app.use('/api/routines', routineRoutes);
 

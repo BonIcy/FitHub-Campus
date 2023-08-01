@@ -28,6 +28,7 @@ exports.getExerciseById = async (req, res) => {
   }
 };
 
+
 exports.createExercise = async (req, res) => {
   try {
     let { name, muscleGroup } = req.body;
@@ -53,6 +54,46 @@ exports.getAllRoutines = async (req, res) => {
     });
   }
 };
+
+exports.deleteExercise = async (req, res) => {
+    try {
+      const exerciseId = req.params.id;
+  
+      // Buscar el ejercicio por su ID y eliminarlo
+      const deletedExercise = await Exercise.findByIdAndRemove(exerciseId);
+  
+      if (!deletedExercise) {
+        return res.status(404).json({ error: 'Ejercicio no encontrado.' });
+      }
+  
+      res.status(200).json(deletedExercise);
+    } catch (error) {
+      console.error('Error al eliminar el ejercicio:', error);
+      res.status(500).json({ error: 'Error al eliminar el ejercicio.' });
+    }
+  };
+
+exports.editExercise = async (req, res) => {
+    try {
+      const exerciseId = req.params.id;
+      const updatedExerciseData = req.body;
+  
+      // Buscar el ejercicio por su ID y actualizar sus datos
+      const updatedExercise = await Exercise.findByIdAndUpdate(exerciseId, updatedExerciseData, {
+        new: true,
+        runValidators: true,
+      });
+  
+      if (!updatedExercise) {
+        return res.status(404).json({ error: 'Ejercicio no encontrado.' });
+      }
+  
+      res.status(200).json(updatedExercise);
+    } catch (error) {
+      console.error('Error al editar el ejercicio:', error);
+      res.status(500).json({ error: 'Error al editar el ejercicio.' });
+    }
+  };
 
 exports.getRoutineById = async (req, res) => {
   try {
@@ -82,3 +123,41 @@ exports.createRoutine = async (req, res) => {
     });
   }
 };
+
+exports.editRoutine = async (req, res) => {
+    try {
+      const routineId = req.params.id;
+      const updatedRoutineData = req.body;
+      // Buscar la rutina por su ID y actualizar sus datos
+      const updatedRoutine = await Routine.findByIdAndUpdate(routineId, updatedRoutineData, {
+        new: true,
+        runValidators: true,
+      });
+  
+      if (!updatedRoutine) {
+        return res.status(404).json({ error: 'Rutina no encontrada.' });
+      }
+  
+      res.status(200).json(updatedRoutine);
+    } catch (error) {
+      console.error('Error al editar la rutina:', error);
+      res.status(500).json({ error: 'Error al editar la rutina.' });
+    }
+  };
+
+  exports.deleteRoutine = async (req, res) => {
+    try {
+      const routineId = req.params.id;
+  
+      // Buscar la rutina por su IDd y eliminarla
+      const deletedRoutine = await Routine.findByIdAndRemove(routineId);
+      if (!deletedRoutine) {
+        return res.status(404).json({ error: 'Rutina no encontrada.' });
+      }
+  
+      res.status(200).json(deletedRoutine);
+    } catch (error) {
+      console.error('Error al eliminar la rutina:', error);
+      res.status(500).json({ error: 'Error al eliminar la rutina.' });
+    }
+  };
