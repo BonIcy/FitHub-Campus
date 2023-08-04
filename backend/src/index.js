@@ -5,6 +5,9 @@ let caloriesRoutes = require('./routes/caloriesRoutes');
 let machineRoutes = require('./routes/machineRoutes'); 
 let supplementRoutes = require('./routes/supplementRoutes');
 let routineRoutes = require('./routes/routineRoutes');
+let uploadRoutes = require('./routes/upload.Routes')
+let fileUpload = require('express-fileupload');
+
 require('dotenv').config();
 
 // Configuración de Express y Mongoose
@@ -23,12 +26,18 @@ mongoose
   });
 
 app.use(express.json());
+app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir : '/tmp/'
+}));
 
 app.use('/api/calories', caloriesRoutes);
 app.use('/api/machines', machineRoutes); 
 
 app.use('/api/supplements', supplementRoutes);
 app.use('/api/routines', routineRoutes);
+
+app.use('/api/uploads', uploadRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {
