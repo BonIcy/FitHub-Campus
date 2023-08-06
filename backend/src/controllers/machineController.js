@@ -2,8 +2,6 @@ let Machine = require('../models/machine');
 exports.createMachine = async (req, res) => {
   try {
     let { name, description, price, stock, category } = req.body;
-
-    // Crea un nuevo objeto de máquina con los datos recibidos en la solicitud
     let newMachine = new Machine({
       name,
       description,
@@ -11,8 +9,6 @@ exports.createMachine = async (req, res) => {
       stock,
       category,
     });
-
-    // Guarda la nueva máquina en la base de datos
     let savedMachine = await newMachine.save();
 
     res.status(200).json(savedMachine);
@@ -26,13 +22,8 @@ exports.createMachine = async (req, res) => {
 
 exports.getMachine = async (req, res) => {
   try {
-    // Obtener el ID de la máquina desde los parámetros de la URL
     let machineId = req.params.id;
-
-    // Buscar la máquina en la base de datos por su ID
     let machine = await Machine.findById(machineId);
-
-    // Verificar si la máquina fue encontrada
     if (!machine) {
       return res.status(404).json({ error: 'Máquina no encontrada.' });
     }
@@ -49,18 +40,11 @@ exports.getMachine = async (req, res) => {
 
 exports.updateMachine = async (req, res) => {
   try {
-    // Obtener el ID de la máquina desde los parámetros de la URL
     let machineId = req.params.id;
-
-    // Buscar la máquina en la base de datos por su ID
     let machine = await Machine.findById(machineId);
-
-    // Verificar si la máquina fue encontrada
     if (!machine) {
       return res.status(404).json({ error: 'Máquina no encontrada.' });
     }
-
-    // Actualizar los campos de la máquina con los datos recibidos en la solicitud
     let { name, description, price, stock, category } = req.body;
     machine.name = name;
     machine.description = description;
@@ -68,7 +52,6 @@ exports.updateMachine = async (req, res) => {
     machine.stock = stock;
     machine.category = category;
 
-    // Guardar los cambios en la base de datos
     let updatedMachine = await machine.save();
 
     res.status(200).json(updatedMachine);
@@ -82,18 +65,11 @@ exports.updateMachine = async (req, res) => {
 
 exports.deleteMachine = async (req, res) => {
   try {
-    // Obtener el ID de la máquina desde los parámetros de la URL
     let machineId = req.params.id;
-
-    // Buscar la máquina en la base de datos por su ID
     let machine = await Machine.findById(machineId);
-
-    // Verificar si la máquina fue encontrada
     if (!machine) {
       return res.status(404).json({ error: 'Máquina no encontrada.' });
     }
-
-    // Eliminar la máquina de la base de datos
     await machine.remove();
 
 

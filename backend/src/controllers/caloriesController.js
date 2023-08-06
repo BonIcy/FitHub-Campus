@@ -19,7 +19,6 @@ exports.calculateCalories = async (req, res) => {
       return res.status(400).json({ error: 'El género debe ser "masculino" o "femenino".' });
     }
 
-    // Aplicar el factor de actividad según el nivel de intensidad del entrenamiento
     let activityFactor;
     switch (intensity) {
       case 'bajo':
@@ -69,8 +68,6 @@ exports.calculateCalories = async (req, res) => {
 exports.saveUserData = async (req, res) => {
   try {
     let { age, gender, weight, height, intensity, goal } = req.body;
-
-    // Crear un nuevo objeto de usuario con los datos del cuerpo de la solicitud
     let newUser = new User({
       age,
       gender,
@@ -80,7 +77,6 @@ exports.saveUserData = async (req, res) => {
       goal,
       calculatedCalories,
     });
-    // Guardar el nuevo usuario en la base de datos
     let savedUser = await newUser.save();
 
     res.status(200).json(savedUser);

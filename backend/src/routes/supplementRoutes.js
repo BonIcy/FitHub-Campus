@@ -3,7 +3,7 @@ let router = express.Router();
 let {getAllSupplements, getSupplementById, createSupplement,updateSupplement,deleteSupplement} = require('../controllers/supplementController');
 let { validateJWT } = require('../middlewares/authMiddleware');
 let isAdminRole = require('../middlewares/isAdminRole'); 
-const { validateDocuments } = require('../middlewares/validate.documents');
+let { validateDocuments } = require('../middlewares/validate.documents');
 
 router.get('/', [validateJWT, validateDocuments], getAllSupplements);
 router.get('/:id', [validateJWT, validateDocuments], getSupplementById);

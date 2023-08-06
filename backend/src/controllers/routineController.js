@@ -57,10 +57,8 @@ exports.getAllRoutines = async (req, res) => {
 
 exports.deleteExercise = async (req, res) => {
     try {
-      const exerciseId = req.params.id;
-  
-      // Buscar el ejercicio por su ID y eliminarlo
-      const deletedExercise = await Exercise.findByIdAndRemove(exerciseId);
+      let exerciseId = req.params.id;
+      let deletedExercise = await Exercise.findByIdAndRemove(exerciseId);
   
       if (!deletedExercise) {
         return res.status(404).json({ error: 'Ejercicio no encontrado.' });
@@ -75,11 +73,9 @@ exports.deleteExercise = async (req, res) => {
 
 exports.editExercise = async (req, res) => {
     try {
-      const exerciseId = req.params.id;
-      const updatedExerciseData = req.body;
-  
-      // Buscar el ejercicio por su ID y actualizar sus datos
-      const updatedExercise = await Exercise.findByIdAndUpdate(exerciseId, updatedExerciseData, {
+      let exerciseId = req.params.id;
+      let updatedExerciseData = req.body;
+      let updatedExercise = await Exercise.findByIdAndUpdate(exerciseId, updatedExerciseData, {
         new: true,
         runValidators: true,
       });
@@ -126,10 +122,9 @@ exports.createRoutine = async (req, res) => {
 
 exports.editRoutine = async (req, res) => {
     try {
-      const routineId = req.params.id;
-      const updatedRoutineData = req.body;
-      // Buscar la rutina por su ID y actualizar sus datos
-      const updatedRoutine = await Routine.findByIdAndUpdate(routineId, updatedRoutineData, {
+      let routineId = req.params.id;
+      let updatedRoutineData = req.body;
+      let updatedRoutine = await Routine.findByIdAndUpdate(routineId, updatedRoutineData, {
         new: true,
         runValidators: true,
       });
@@ -147,10 +142,8 @@ exports.editRoutine = async (req, res) => {
 
   exports.deleteRoutine = async (req, res) => {
     try {
-      const routineId = req.params.id;
-  
-      // Buscar la rutina por su IDd y eliminarla
-      const deletedRoutine = await Routine.findByIdAndRemove(routineId);
+      let routineId = req.params.id;
+      let deletedRoutine = await Routine.findByIdAndRemove(routineId);
       if (!deletedRoutine) {
         return res.status(404).json({ error: 'Rutina no encontrada.' });
       }

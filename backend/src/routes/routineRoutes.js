@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 let {getAllExercises,getExerciseById, createExercise, deleteExercise,editExercise,getAllRoutines, getRoutineById, createRoutine,editRoutine, deleteRoutine } = require('../controllers/routineController');
 let { validateJWT } = require('../middlewares/authMiddleware');
-const { validateDocuments } = require('../middlewares/validate.documents');
+let { validateDocuments } = require('../middlewares/validate.documents');
 
 router.get('/', [validateJWT,
 validateDocuments], getAllExercises);
