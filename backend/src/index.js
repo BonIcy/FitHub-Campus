@@ -1,4 +1,3 @@
-// index.js
 let express = require('express');
 let mongoose = require('mongoose');
 let caloriesRoutes = require('./routes/caloriesRoutes'); 
