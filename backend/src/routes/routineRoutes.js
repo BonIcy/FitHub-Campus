@@ -1,17 +1,29 @@
 let express = require('express');
 let router = express.Router();
-let routineController = require('../controllers/routineController');
+let {getAllExercises,getExerciseById, createExercise, deleteExercise,editExercise,getAllRoutines, getRoutineById, createRoutine,editRoutine, deleteRoutine } = require('../controllers/routineController');
+let { validateJWT } = require('../middlewares/authMiddleware');
+const { validateDocuments } = require('../middlewares/validate.documents');
 
-router.get('/all', routineController.getAllExercises);
-router.get('/one/:id', routineController.getExerciseById);
-router.post('/add', routineController.createExercise);
-router.delete('/del/:id', routineController.deleteExercise);
-router.put('/upd/:id', routineController.editExercise);
+router.get('/', [validateJWT,
+validateDocuments], getAllExercises);
+router.get('/:id', [validateJWT,
+validateDocuments], getExerciseById);
+router.post('/', [validateJWT,
+validateDocuments], createExercise);
+router.delete('/:id', [validateJWT,
+validateDocuments], deleteExercise);
+router.put('/:id', [validateJWT,
+validateDocuments], editExercise);
 
-router.get('/all', routineController.getAllRoutines);
-router.get('/one/:id', routineController.getRoutineById);
-router.post('/add', routineController.createRoutine);
-router.put('/upd/:id', routineController.editRoutine);
-router.delete('/del/:id', routineController.deleteRoutine);
+router.get('/', [validateJWT,
+validateDocuments], getAllRoutines);
+router.get('/:id', [validateJWT,
+validateDocuments], getRoutineById);
+router.post('/', [validateJWT,
+validateDocuments], createRoutine);
+router.put('/:id', [validateJWT,
+validateDocuments], editRoutine);
+router.delete('/:id', [validateJWT,
+validateDocuments], deleteRoutine);
 
 module.exports = router;

@@ -1,11 +1,14 @@
 
 let express = require('express');
 let router = express.Router();
-let machineController = require('../controllers/machineController');
+let {getMachine, createMachine, updateMachine, deleteMachine} = require('../controllers/machineController');
+let {validateJWT} = require('../middlewares/authMiddleware')
+let isAdminRole = require('../middlewares/isAdminRole');
+let { validateDocuments } = require('../middlewares/validate.documents');
 
-router.get('/all/:id', machineController.getMachine);
-router.post('/add', machineController.createMachine);
-router.put('/upd/:id', machineController.updateMachine);
-router.delete('/del/:id', machineController.deleteMachine);
+router.get('/:id', [validateJWT, validateDocuments], getMachine);
+router.post('/', [validateJWT, isAdminRole, validateDocuments], createMachine);
+router.put('/:id',[validateJWT, isAdminRole, validateDocuments], updateMachine);
+router.delete('/:id',[validateJWT, isAdminRole, validateDocuments], deleteMachine);
 
 module.exports = router;

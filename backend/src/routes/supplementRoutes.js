@@ -1,11 +1,14 @@
 let express = require('express');
 let router = express.Router();
-let supplementController = require('../controllers/supplementController');
+let {getAllSupplements, getSupplementById, createSupplement,updateSupplement,deleteSupplement} = require('../controllers/supplementController');
+let { validateJWT } = require('../middlewares/authMiddleware');
+let isAdminRole = require('../middlewares/isAdminRole'); 
+const { validateDocuments } = require('../middlewares/validate.documents');
 
-router.get('/all', supplementController.getAllSupplements);
-router.get('/one/:id', supplementController.getSupplementById);
-router.post('/add', supplementController.createSupplement);
-router.put('/upd/:id', supplementController.updateSupplement);
-router.delete('/del/:id', supplementController.deleteSupplement);
+router.get('/', [validateJWT, validateDocuments], getAllSupplements);
+router.get('/:id', [validateJWT, validateDocuments], getSupplementById);
+router.post('/', [validateJWT, isAdminRole, validateDocuments], createSupplement);
+router.put('/:id', [validateJWT, isAdminRole, validateDocuments], updateSupplement);
+router.delete('/:id', [validateJWT, isAdminRole, validateDocuments], deleteSupplement);
 
 module.exports = router;

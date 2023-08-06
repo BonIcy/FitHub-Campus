@@ -1,11 +1,13 @@
-
+// index.js
 let express = require('express');
 let mongoose = require('mongoose');
 let caloriesRoutes = require('./routes/caloriesRoutes'); 
 let machineRoutes = require('./routes/machineRoutes'); 
 let supplementRoutes = require('./routes/supplementRoutes');
 let routineRoutes = require('./routes/routineRoutes');
-let uploadRoutes = require('./routes/upload.Routes')
+let uploadRoutes = require('./routes/upload.Routes');
+let registerUserRoutes = require('./routes/registerUserRoutes');
+let authRoutes = require('./routes/authRoutes');
 let fileUpload = require('express-fileupload');
 
 require('dotenv').config();
@@ -16,8 +18,7 @@ let port = process.env.PORT;
 let uri = process.env.MONGODB_URI;
 
 // Conexión con MongoDB
-mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Conectado a MongoDB');
   })
@@ -27,18 +28,17 @@ mongoose
 
 app.use(express.json());
 app.use(fileUpload({
-  useTempFiles : true,
-  tempFileDir : '/tmp/'
+  useTempFiles: true,
+  tempFileDir: '/tmp/'
 }));
 
 app.use('/api/calories', caloriesRoutes);
 app.use('/api/machines', machineRoutes); 
-
 app.use('/api/supplements', supplementRoutes);
 app.use('/api/routines', routineRoutes);
-
 app.use('/api/uploads', uploadRoutes);
-
+app.use('/api', registerUserRoutes); 
+app.use('/api/auth', authRoutes);
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor en funcionamiento en http://localhost:${port}`);
