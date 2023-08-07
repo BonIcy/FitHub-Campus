@@ -1,0 +1,49 @@
+* {
+    background-color: black;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #030608;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    color: white;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: rgba(237, 163, 163, 0.871); /* Agrega el color rojo claro */
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(180, 19, 19, 0.781);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    transform: scale(1.1);
+    background-color: rgba(207, 12, 12, 0.658);
+    border: 2px solid rgb(110, 16, 16);
+  }
+  
