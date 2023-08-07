@@ -28,7 +28,7 @@
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    background-color: rgba(237, 163, 163, 0.871); /* Agrega el color rojo claro */
+    background-color: rgba(237, 163, 163, 0.871); 
   }
   
   button[type="submit"] {
