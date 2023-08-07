@@ -1,0 +1,18 @@
+#nv{
+    background-color: rgb(0, 0, 0); 
+    z-index: 20;
+    position:relative;
+    left:0; 
+    }
+    
+    #nv li:hover{
+    background-color:rgba(207, 12, 12, 0.205);
+    color: white;
+    }
+    
+    #imgg{
+      filter: brightness(36%);
+      height: 95vh;
+      object-fit: cover;
+      
+    }

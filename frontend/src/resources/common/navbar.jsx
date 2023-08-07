@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/style.css';
+import '../css/navbar.css';
 import { Link } from 'react-router-dom';
 
 let Navbar = () => {
@@ -15,19 +15,19 @@ let Navbar = () => {
             <div className="collapse navbar-collapse justify-content-start" id="navbarav">
               <ul className="navbar-nav">
                 <li className="nav-item p-3 p-lg-0">
-                  <a className="nav-link" aria-current="page" href="#Diviertete">Rutinas</a>
+                <Link to="http://localhost:3000/" className="nav-link">Rutinas</Link>
                 </li>
                 <li className="nav-item p-3 p-lg-0">
                 <Link to="/calories" className="nav-link">Calorias</Link>
                 </li>
                 <li className="nav-item p-3 p-lg-0">
-                  <a className="nav-link" aria-current="page" href="#Desarrolladores">Maquinas</a>
+                <Link to="http://localhost:3000/" className="nav-link">Maquinas</Link>
                 </li>
                 <li className="nav-item p-3 p-lg-0">
-                  <a className="nav-link" aria-current="page" href="#Creadores">Suplementos</a>
+                <Link to="http://localhost:3000/" className="nav-link">Suplementos</Link>
                 </li>
                 <li className="nav-item p-3 p-lg-0">
-                  <a className="nav-link" aria-current="page" href="#Nuevos">Comunidad</a>
+                <Link to="http://localhost:3000/" className="nav-link">Comunidad</Link>
                 </li>
               </ul>
             </div>

@@ -1,46 +1,80 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/calories.css'; 
+import CustomModal from './modal';
 
 let CaloriesForm = () => {
-    let [formData, setFormData] = useState({
-      age: '',
-      gender: '',
-      weight: '',
-      height: '',
-      intensity: '',
-      goal: '',
-    });
-    let [caloriesResult, setCaloriesResult] = useState(null);
-    let handleChange = (e) => {
-      let { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-    };
-    let handleCalculate = () => {
-        let authToken = localStorage.getItem('token');
-    
-        if (authToken) {
-          let config = {
-            headers: {
-              'x-api-token-jwt': authToken,
-            },
-          };
-    
-          axios
-            .post('http://localhost:5513/api/calories/calculate', formData, config)
-            .then((response) => {
-              setCaloriesResult(response.data.calories);
-            })
-            .catch((error) => {
-              console.error('Error al calcular las calorías:', error);
-            });
-        } else {
-          console.log('Usuario no autenticado. Debes iniciar sesión primero.');
-        }
+  let [formData, setFormData] = useState({
+    age: '',
+    gender: '',
+    weight: '',
+    height: '',
+    intensity: '',
+    goal: '',
+  });
+  let [caloriesResult, setCaloriesResult] = useState(null);
+  let handleChange = (e) => {
+    let { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  let handleCalculate = () => {
+    let authToken = localStorage.getItem('token');
+
+    if (authToken) {
+      let config = {
+        headers: {
+          'x-api-token-jwt': authToken,
+        },
       };
-    
+
+      axios
+        .post('http://localhost:5513/api/calories/calculate', formData, config)
+        .then((response) => {
+          setCaloriesResult(response.data.calories);
+        })
+        .catch((error) => {
+          console.error('Error al calcular las calorías:', error);
+        });
+    } else {
+      console.log('Usuario no autenticado. Debes iniciar sesión primero.');
+    }
+  };
+  let [savedCalculations, setSavedCalculations] = useState([]);
+  let handleSaveCalculation = () => {
+    let newCalculation = {
+      formData,
+      caloriesResult,
+    };
+  
+    setSavedCalculations([...savedCalculations, newCalculation]);
+    localStorage.setItem('savedCalculations', JSON.stringify([...savedCalculations, newCalculation]));
+    alert('¡Datos guardados correctamente!');
+  };
+  
+  
+
+  let [isModalOpen, setIsModalOpen] = useState(false);
+
+  let openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  let closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const savedCalculationsData = localStorage.getItem('savedCalculations');
+    if (savedCalculationsData) {
+      setSavedCalculations(JSON.parse(savedCalculationsData));
+    }
+  }, []);
+  
+
   return (
     <div className="calories-form-container">
+      <h2 className="calories-form-title">Calcula tus calorías aqui</h2>
       <div>
         <label>Edad:</label>
         <input type="number" name="age" value={formData.age} onChange={handleChange} />
@@ -48,7 +82,7 @@ let CaloriesForm = () => {
       <div>
         <label>Género:</label>
         <select name="gender" value={formData.gender} onChange={handleChange}>
-        <option value="">Seleccione</option>
+          <option value="">Seleccione</option>
           <option value="masculino">Masculino</option>
           <option value="femenino">Femenino</option>
         </select>
@@ -64,7 +98,7 @@ let CaloriesForm = () => {
       <div>
         <label>Nivel de intensidad:</label>
         <select name="intensity" value={formData.intensity} onChange={handleChange}>
-        <option value="">Seleccione</option>
+          <option value="">Seleccione</option>
           <option value="bajo">Bajo</option>
           <option value="medio">Medio</option>
           <option value="alto">Alto</option>
@@ -73,14 +107,14 @@ let CaloriesForm = () => {
       <div>
         <label>Objetivo:</label>
         <select name="goal" value={formData.goal} onChange={handleChange}>
-        <option value="">Seleccione</option>
+          <option value="">Seleccione</option>
           <option value="mantener">Mantener</option>
           <option value="ganar">Ganar</option>
           <option value="bajar">Bajar</option>
         </select>
       </div>
       <div>
-      <button onClick={handleCalculate}>Calcular</button>
+        <button onClick={handleCalculate}>Calcular</button>
       </div>
       {caloriesResult !== null && (
         <div className="calories-result">
@@ -88,6 +122,11 @@ let CaloriesForm = () => {
           <span className="calories-value">{caloriesResult}</span>
         </div>
       )}
+      {caloriesResult !== null && (
+        <button onClick={handleSaveCalculation}>Guardar</button>
+      )}
+      <button onClick={openModal}>Ver datos guardados</button>
+      <CustomModal isOpen={isModalOpen} onClose={closeModal} savedCalculations={savedCalculations} />
     </div>
   );
 };
