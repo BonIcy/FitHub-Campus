@@ -7,10 +7,12 @@ import RegisterForm from './resources/form/registerForm.jsx';
 import './resources/css/style.css';
 
 function App() {
+  // Gestionar autenticacion de usuarios
   let [isAuthenticated, setIsAuthenticated] = useState(false);
-
+//funcion de inicio de sesion
   let handleLogin = async (formData) => {
     try {
+       // Envío de una solicitud POST a la API de inicio de sesión
       let response = await fetch('http://localhost:5513/api/auth/login', {
         method: 'POST',
         headers: {
@@ -20,6 +22,7 @@ function App() {
       });
   
       if (response.ok) {
+         // Si el inicio de sesión es exitoso, establecer el estado de autenticación y almacenar el token
         let data = await response.json();
         console.log('Usuario logueado:', data);
         setIsAuthenticated(true);
@@ -36,6 +39,7 @@ function App() {
 
   let handleRegister = async (formData) => {
     try {
+        // Envío de una solicitud POST a la API de registro
       let response = await fetch('http://localhost:5513/api/register', {
         method: 'POST',
         headers: {
@@ -54,6 +58,7 @@ function App() {
       console.error('Error en la petición de registro:', error);
     }
   };
+   // Función para manejar el cierre de sesión del usuario cambiando el autenticado a false
   let handleLogout = () => {
     setIsAuthenticated(false);
   };
@@ -64,6 +69,7 @@ function App() {
           <nav>
             <ul>
               {isAuthenticated ? (
+                 // Si el usuario está autenticado mostrar enlaces de navegación y el botón de cierre de sesión
                 <>
                   <li>
                     <Link to="/">Inicio</Link>

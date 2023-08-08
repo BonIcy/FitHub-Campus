@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/navbar.css';
 import { Link } from 'react-router-dom';
-
+//sencillamente una navbar jaja, pero con una verificacion de autenticado
 let Navbar = ({ isAuthenticated, handleLogout }) => {
   return (
         <nav className="navbar position-relative navbar-expand-lg navbar-dark  w-100 text-decoration-none pt-3 mt-4 container-fluid">
@@ -38,11 +38,14 @@ let Navbar = ({ isAuthenticated, handleLogout }) => {
               </ul>
             </div>
           </div>
-          {isAuthenticated ? (
+           {/* Verificamos si el usuario está autenticado */}
+           {isAuthenticated ? (
+             // se muestra el botón de cerrar sesión
         <div>
               <button onClick={handleLogout} className="auth-button">Cerrar sesión</button>
             </div>
           ) : (
+             // se muestra enlaces para iniciar sesión y registrarse si no está autenticado
             <div>
               <Link to="/login" className="auth-link">Iniciar sesión</Link>
               <Link to="/register" className="auth-link">Registrarse</Link>

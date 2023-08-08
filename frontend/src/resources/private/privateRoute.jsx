@@ -1,5 +1,11 @@
 import { Route, useNavigate } from 'react-router-dom'; 
-// NO LO TERMINE USANDO POR CONFLICTOS CON COOKIES Y VERSIONES DE ES
+
+
+
+//! NO LO TERMINE USANDO POR CONFLICTOS CON COOKIES Y VERSIONES DE ES
+
+
+
 let PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   const navigate = useNavigate();
 
