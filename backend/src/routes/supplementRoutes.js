@@ -5,9 +5,9 @@ let { validateJWT } = require('../middlewares/authMiddleware');
 let isAdminRole = require('../middlewares/isAdminRole'); 
 let { validateDocuments } = require('../middlewares/validate.documents');
 
-router.get('/', [validateJWT, validateDocuments], getAllSupplements);
+router.get('/', getAllSupplements);
 router.get('/:id', [validateJWT, validateDocuments], getSupplementById);
-router.post('/', [validateJWT, isAdminRole, validateDocuments], createSupplement);
+router.post('/', [validateJWT, isAdminRole], createSupplement);
 router.put('/:id', [validateJWT, isAdminRole, validateDocuments], updateSupplement);
 router.delete('/:id', [validateJWT, isAdminRole, validateDocuments], deleteSupplement);
 

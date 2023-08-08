@@ -13,7 +13,7 @@ let LoginForm = ({ onLogin, setIsAuthenticated }) => {
       let { name, value } = event.target;
       setFormData({ ...formData, [name]: value });
     };
-  
+
     let handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -27,7 +27,8 @@ let LoginForm = ({ onLogin, setIsAuthenticated }) => {
       
   
     return (
-      <form onSubmit={handleSubmit}>
+      <div className="center-container">
+      <form onSubmit={handleSubmit} class="container">
         <div>
           <label>Email:</label>
           <input type="email" name="email" value={formData.email} onChange={handleChange} required />
@@ -44,6 +45,7 @@ let LoginForm = ({ onLogin, setIsAuthenticated }) => {
         </div>
         <button type="submit">Iniciar sesión</button>
       </form>
+      </div>
     );
   };
   

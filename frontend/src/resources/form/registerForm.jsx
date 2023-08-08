@@ -20,14 +20,15 @@ let RegisterForm = ({ onRegister, setIsAuthenticated }) => {
     try {
       await onRegister(formData);
       setIsAuthenticated(true); 
-      navigate('/'); 
+      navigate('http://localhost:3000/login'); 
     } catch (error) {
       console.error('Error al registrar usuario:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="center-container">
+    <form onSubmit={handleSubmit} className='container'>
       <div>
         <label>Username:</label>
         <input
@@ -60,6 +61,7 @@ let RegisterForm = ({ onRegister, setIsAuthenticated }) => {
       </div>
       <button type="submit">Registrar</button>
     </form>
+    </div>
   );
 };
 
